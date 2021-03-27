@@ -1,4 +1,10 @@
+  
+import { News } from '../components/news/News';
+import { useParams } from 'react-router-dom';
 
 export function NewsPage() {
-  // TODO útfæra fréttasíðu
+  const { id } = useParams();
+  return (
+    <News id={id} back={true} />
+  );
 }
