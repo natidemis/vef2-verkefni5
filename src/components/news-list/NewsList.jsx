@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import {News} from '../news/News';
+import { News } from '../news/News';
 import fetch from 'node-fetch';
+import s from './NewsList.module.scss';
+
+/*eslint-env node, mocha */
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export function NewsList() {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [data, setData] = useState(null);
+  const [ loading, setLoading ] = useState(false);
+  const [ error, setError ] = useState(null);
+  const [ data, setData ] = useState(null);
   useEffect(() => {
     async function getData() {
       setLoading(true);
@@ -30,30 +33,25 @@ export function NewsList() {
   },[]);
   if(error) {
     return (
-      <p>{error}</p>
+        <p>{error}</p>
     );
   }
   if(loading) {
     return (
-      <p>Er að sækja gögn..</p>
+        <p>Er að sækja gögn..</p>
       );
   }
 
   const gogn = data || [];
-  console.log(gogn.length);
-  console.log(JSON.stringify(gogn));
- 
 
   return (
-      <section>
-        {gogn.length > 0 && gogn.map((result,i) => {
+      <section className={ s.container }>
+          {gogn.length > 0 && gogn.map((result,i) => {
           return (
-            <div key={i}>
-              <News 
-                id={result.id} 
-                limit={5}
+              <News key={ result.id }
+                id={ result.id } 
+                limit={ 5 }
               />
-            </div>
           );
         })}
       </section>

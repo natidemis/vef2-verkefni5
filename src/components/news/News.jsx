@@ -1,43 +1,55 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import fetch from 'node-fetch';
+import s from './News.module.scss';
+import PropTypes from 'prop-types';
+
+/*eslint-env node, mocha */
 const apiUrl = process.env.REACT_APP_API_URL;
 
+News.propTypes = {
+  id: PropTypes.string.isRequired,
+  limit: PropTypes.number,
+  back: PropTypes.bool,
+}
 
-export function News({id, limit = 20, back = false }) {
-  console.log("news");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [data, setData] = useState(null);
+export function News({ id, limit = 20, back = false }) {
+  const [ loading, setLoading ] = useState(false);
+  const [ error, setError ] = useState(null);
+  const [ data, setData ] = useState(null);
 
   useEffect(()=>{
     async function getData() {
       setLoading(true);
-      const url = `${apiUrl}${id}`;
+      const url = `${ apiUrl }${ id }`;
       let newsData;
       try {
         const result = await fetch(url);
         if(!result.ok){
-          throw new Error("náði ekki að sækja gogn");
+          throw new Error('náði ekki að sækja gogn');
         }
         newsData = await result.json();
       }catch(e) {
-        setError('Gat eki sótt gögn');
+        setError('Gat ekki sótt gögn');
       }finally{
         setLoading(false);
       }
       setData(newsData);
     }
     getData();
-  },[id]);
+  },[ id ]);
   if(error) {
     return (
-      <p>{error}</p>
+        <div className={ s.cell }>
+            <p>{error}</p>
+        </div>
     );
   }
   if(loading) {
     return (
-      <p>Er að sækja gögn..</p>
+        <div className={ s.cell }>
+            <p>Er að sækja gögn..</p>
+        </div>
     );
   }
   let news = [];
@@ -50,23 +62,26 @@ export function News({id, limit = 20, back = false }) {
   }
   
   return (
-    <div>
-      <h2>{title}</h2>
-      <ul>
-        {news.length > 0 && news.map((result,i)=>{
-          if(i < limit) {
-            return (
-              <li key={i}>
-                <a href={result.link}>{result.title}</a>
-              </li>
-            );
-          }
-          return (
-            false
-          );
-        })}
-      </ul>
-      {(back && <Link to="/">Til baka</Link>)||<Link to={id}><strong>Allar Fréttir</strong></Link>}
-    </div>
+      <div className={ s.cell }>
+          <h2>{title}</h2>
+          <ul>
+              {news.length > 0 && news.map((result,i)=>{
+              if(i < limit) {
+                return (
+                    <li key={ result.id }>
+                        <a href={ result.link } className={ s.cell__text }>{result.title}</a>
+                    </li>
+                );
+              }
+              return (
+                false
+              );
+            })}
+          </ul>
+          {
+            (back && <Link to="/" className={ s.cell__text }><strong>Til baka</strong></Link>)
+            ||
+            <Link to={ `/news/${ id }` } ><strong className={ s.cell__text }>Allar Fréttir</strong></Link>}
+      </div>
   );
 }

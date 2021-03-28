@@ -1,7 +1,7 @@
-import {NewsList} from '../components/news-list/NewsList';
+import { NewsList } from '../components/news-list/NewsList';
 
 export function Index() {
   return (
-    <NewsList></NewsList>
+      <NewsList></NewsList>
   );
 }

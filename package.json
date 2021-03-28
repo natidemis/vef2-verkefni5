@@ -13,7 +13,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "test:stylelint": "stylelint ./src/components/news/*.scss ./src/components/news-list/*.scss --syntax scss"
   },
   "eslintConfig": {
     "extends": [
@@ -32,5 +33,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.23.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-react": "^7.23.1",
+    "sass-lint": "^1.13.1",
+    "stylelint": "^13.12.0",
+    "stylelint-config-sass-guidelines": "^8.0.0",
+    "stylelint-config-standard": "^21.0.0"
   }
 }

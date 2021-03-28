@@ -8,10 +8,9 @@ import './index.css';
 // TODO setja upp router
 
 ReactDOM.render(
-  <React.StrictMode>
-
-      <App />
-
-  </React.StrictMode>,
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
+  // eslint-disable-next-line no-undef
   document.getElementById('root')
 );
