@@ -8,15 +8,20 @@ import { NotFound } from './pages/NotFound';
 
 export default function App() {
   return (
-      <BrowserRouter>
+    <BrowserRouter>
+    <div>
         <h1>Rúv Fréttir</h1>
           <Switch>
            <Route exact path="/" component = {Index}></Route>
-           <Route path="/:types" children={<NewsPage />}></Route>
+           <Route path="/:id" component={NewsPage}></Route>
            <Route component={NotFound} />
           </Switch>
           <hr/>
-          <p>Fréttir frá <a href="https://www.ruv.is/">RÚV</a>.</p>
-      </BrowserRouter>
+          <p>Fréttir frá<a href= "https://ruv.is" rel="noreferrer">
+          RUV
+       </a></p>
+          
+      </div>
+    </BrowserRouter>
   );
 }

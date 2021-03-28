@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {News} from '../news/News';
+import fetch from 'node-fetch';
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export function NewsList() {
@@ -16,7 +17,7 @@ export function NewsList() {
         if(!result.ok){
           throw new Error('gekk ekki að sækja gogn');
         }
-        newsData = result.json();
+        newsData = await result.json();
       }catch(e) {
         setError('Gat ekki sótt gögn');
         return;
@@ -38,10 +39,7 @@ export function NewsList() {
       );
   }
 
-  let gogn = [];
-  if(data){
-    gogn = data;
-  }
+  const gogn = data || [];
   console.log(gogn.length);
   console.log(JSON.stringify(gogn));
  

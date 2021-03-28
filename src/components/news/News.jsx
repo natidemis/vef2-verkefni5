@@ -13,14 +13,14 @@ export function News({id, limit = 20, back = false }) {
   useEffect(()=>{
     async function getData() {
       setLoading(true);
-      const url = `${apiUrl}/${id}`;
+      const url = `${apiUrl}${id}`;
       let newsData;
       try {
         const result = await fetch(url);
         if(!result.ok){
           throw new Error("náði ekki að sækja gogn");
         }
-        newsData = result.json();
+        newsData = await result.json();
       }catch(e) {
         setError('Gat eki sótt gögn');
       }finally{
